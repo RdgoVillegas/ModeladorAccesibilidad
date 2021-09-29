@@ -39,38 +39,27 @@ oriCap <- escuelasSf %>%
     summarise(sum = sum(basica_cap, na.rm = T))
 oriCap <- oriCap$sum[1]
 
+dbHeader <- dashboardHeader(title = "Modelador de Accesibilidad Comunal en Chillán",
+                            tags$li(a(href = 'http://shinyapps.company.com',
+                                      icon("power-off"),
+                                      title = "Back to Apps Home"),
+                                    class = "dropdown"),
+                            tags$li(a(href = 'http://www.company.com',
+                                      img(src = 'company_logo.png',
+                                          title = "Company Home", height = "30px"),
+                                      style = "padding-top:10px; padding-bottom:10px;"),
+                                    class = "dropdown"))
 
-# Takes a location 'href', an image location 'src', a loading gif 'loadingsrc'
-# height, width and alt text, and produces a loading logo that activates while
-# Shiny is busy
-loadingLogo <- function(href, src, loadingsrc, height = NULL, width = NULL, alt = NULL) {
-    tagList(
-        tags$head(
-            tags$script(
-                "setInterval(function(){
-                     if ($('html').attr('class')=='shiny-busy') {
-                     $('div.busy').show();
-                     $('div.notbusy').hide();
-                     } else {
-                     $('div.busy').hide();
-                     $('div.notbusy').show();
-           }
-         },100)")
-        ),
-        tags$a(href=href,
-               div(class = "busy",  
-                   img(src=loadingsrc,height = height, width = width, alt = alt)),
-               div(class = 'notbusy',
-                   img(src = src, height = height, width = width, alt = alt))
-        )
-    )
-}
 
 # Define UI for application that draws a histogram
 ui <- dashboardPage(
+    
 
     # Application title
-    dashboardHeader( title = "Modelador de Accesibilidad en Chillán", titleWidth  = 400),
+    dashboardHeader( title = "Modelador de Accesibilidad Comunal en Chillán", titleWidth  = 400
+                     
+                     
+                     ),
 
     # Sidebar with a slider input for number of bins 
     dashboardSidebar(
@@ -98,8 +87,7 @@ ui <- dashboardPage(
     ),
     
     dashboardBody(
-        tags$style(type = "text/css", "#map {height: calc(100vh - 250px) !important;}
-                                       #mapPlotPop {height: calc(100vh - 250px) !important;}"),
+        tags$head( tags$link(rel = "stylesheet", type = "text/css", href = "www/css/styles.css")),
         
         # Cajitas con indicadores generales
         fluidRow(valueBoxOutput("total_kids"),
