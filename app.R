@@ -36,8 +36,9 @@ source("scripts/dataLoader.R")
 
 oriCap <- escuelasSf %>%
     `st_geometry<-`(NULL) %>%
-    summarise(sum = sum(basica_cap, na.rm = T))
-oriCap <- oriCap$sum[1]
+    summarise(sum = sum(basica_cap, na.rm = T)) %>%
+    pull()
+oriAcc <- 0.73
 
 
 selectInput("indicadorsh", 
@@ -67,7 +68,7 @@ dbHeader <- dashboardHeader(title = "Accesibilidad Escolar", titleWidth = 450,
                                 style = "padding-top:10px;"),
                             tags$li(a(href = 'http://www.observatorio.cedeus.cl',
                                       img(src = "img/Logo.png",
-                                          title = "Company Home", height = "30px")),
+                                          title = "Observatorio CEDEUS", height = "30px")),
                                     class = "dropdown"
                                     
                                     ))
@@ -272,7 +273,8 @@ server <- function(input, output) {
             summarise(mean = mean(Access, na.rm = T)) %>%
             pull()  %>%
             round(2) %>%
-            prettyNum(big.mark = ".", decimal.mark = ",") %>%
+            paste0(., " (+", round(100 * (./oriAcc - 1), 2), "%)") %>%
+            gsub("\\.", ",", x = .) %>%
             valueBox(subtitle = "Accesibilidad promedio")
         
     })
