@@ -36,9 +36,11 @@ a{
 .skin-blue .main-header .logo {
 	background-color: #f4b943;
 }
+.skin-blue .main-header .navbar{
+  background-color: red;
+}
 
 div{
 
 }
 >>>>>>> 0201ba0c7a2ae4c3c8879ff804c5af5c4141535b:www/styles.css
-
