@@ -27,11 +27,8 @@ a{
 
 }
 
-.main-header .logo {
-  font-family: "Georgia", Times, "Times New Roman", serif;
-  font-weight: bold;
-  font-size: 24px;
-  font-color: red;
+.skin-blue .main-header .navbar{
+  background-color: white;
 }
 
 div{
