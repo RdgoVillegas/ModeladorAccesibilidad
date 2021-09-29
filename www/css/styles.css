@@ -1,3 +1,4 @@
+<<<<<<< HEAD:www/css/styles.css
 body {
 
 }
@@ -34,3 +35,45 @@ a{
 div{
 
 }
+=======
+body {
+
+}
+
+
+/* font */
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap');
+
+h1,h2,h3{
+
+}
+
+h1{
+
+}
+
+h2{
+
+}
+
+p{
+
+}
+
+a{
+
+}
+
+* {
+
+}
+
+.skin-blue .main-header .navbar{
+  background-color: white;
+}
+
+div{
+
+}
+>>>>>>> 0201ba0c7a2ae4c3c8879ff804c5af5c4141535b:www/styles.css
