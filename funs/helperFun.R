@@ -107,7 +107,8 @@ accessMapGenerator <- function(polygonLayer, pointLayer){
   binpal <- colorBin("PuOr",cortes, bins= 9, pretty = T)
   
   map <- leaflet(options = leafletOptions(doubleClickZoom= FALSE)) %>%
-    addTiles() %>%
+    addTiles(urlTemplate = "https://tile.nextzen.org/tilezen/vector/v1/256/all/{z}/{x}/{y}.topojson",
+             options = tileOptions(tms = TRUE)) %>%
     addPolygons(data = polygonLayer,
                 popup = ~paste("N6a14:", n6a14, "<br/>", "Acceso:", Access),
                 stroke = T,
@@ -125,7 +126,7 @@ accessMapGenerator <- function(polygonLayer, pointLayer){
 
 popMapGenerator <- function(polygonLayer, pointLayer){
   
-  binpal <- colorBin("Blues", polygonLayer$n6a14, bins = 6, pretty = FALSE)
+  binpal <- colorBin("Blues", polygonLayer$n6a14, bins = 6, pretty = TRUE)
   
   map <- leaflet(options = leafletOptions(doubleClickZoom= FALSE)) %>%
     addTiles() %>%

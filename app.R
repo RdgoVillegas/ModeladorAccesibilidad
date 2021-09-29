@@ -4,12 +4,6 @@
 # Status: Development
 
 
-# Neceisto implementar un botón que diga "añadir colegio" que haga lo siguiente:
-#  Pedir una capacidad
-#  Pedir una localización
-#  Guardar
-
-
 library(shiny); library(tidyverse); library(sf);library(shinydashboard)
 
 library(plotly); library(RCurl)
@@ -38,29 +32,64 @@ cortes <- c(0, .25, .5, .75, 1, 1.25, 1.5, 1.75, 2)
 
 binpal <- colorBin("PuOr",cortes, bins= 9, pretty = T)
 
-load(file = "Data/mzn_rbd.RDS")
-load(file = "Data/mzns_procesadas.RDS")
-load(file = "Data/rbd_procesadas.RDS")
-load(file = "Data/mznsCentroide.RDS")
+source("scripts/dataLoader.R")
+
+oriCap <- escuelasSf %>%
+    `st_geometry<-`(NULL) %>%
+    summarise(sum = sum(basica_cap, na.rm = T))
+oriCap <- oriCap$sum[1]
+
+
+# Takes a location 'href', an image location 'src', a loading gif 'loadingsrc'
+# height, width and alt text, and produces a loading logo that activates while
+# Shiny is busy
+loadingLogo <- function(href, src, loadingsrc, height = NULL, width = NULL, alt = NULL) {
+    tagList(
+        tags$head(
+            tags$script(
+                "setInterval(function(){
+                     if ($('html').attr('class')=='shiny-busy') {
+                     $('div.busy').show();
+                     $('div.notbusy').hide();
+                     } else {
+                     $('div.busy').hide();
+                     $('div.notbusy').show();
+           }
+         },100)")
+        ),
+        tags$a(href=href,
+               div(class = "busy",  
+                   img(src=loadingsrc,height = height, width = width, alt = alt)),
+               div(class = 'notbusy',
+                   img(src = src, height = height, width = width, alt = alt))
+        )
+    )
+}
 
 # Define UI for application that draws a histogram
 ui <- dashboardPage(
 
     # Application title
-    dashboardHeader( title = "Accesibilidad Escolar en Chillán", titleWidth  = 400),
+    dashboardHeader( title = "Modelador de Accesibilidad en Chillán", titleWidth  = 400),
 
     # Sidebar with a slider input for number of bins 
     dashboardSidebar(
 
         verticalLayout(
-            
+            selectInput("indicadorsh", 
+                        label = "Elija un indicador a modelar",
+                        choices = c("Accesibilidad Escolar", 
+                                    "Accesibilidad a Áreas Verdes",
+                                    "Cobertura de Bomberos", 
+                                    "Cobertura de Carabineros",
+                                    "Cobertura de Emergencia"),
+                        selected = "Accesibilidad Escolar"),
             h3("Indicador de Accesibilidad Escolar"),
             p("Esta herramienta permite evaluar la incidencia de la construcción de una nueva escuela municipal en un indicador de accesibilidad escolar municipal"),
             p("El indicador de accesibilidad evalua la cantidad de matrículas disponibles por niño en función de la cercanía de las escuelas, cuantas matrículas tienen disponibles, y cuantos niños conviven cerca. De esta manera, el indicador de accesibilidada escolar integra oferta, demanda, y transporte"),
             p("Para usarlo, se debe hacer click en 'Añadir Escuela', ingresar un nombre, una capacidad, y luego seleccionar un lugar del mapa para la escuela. Luego, se debe hacer click en 'Calcular Cambios'. El mapa se actualizará, presentando los efectos de la nueva escuela en el indicador."),
             actionButton("actionSchool", "Añadir Escuela"),
-            parameter_tabs,
-            p("Desarrollado por Rodrigo Villegas Salgado")
+            parameter_tabs
         )
         
             
@@ -203,17 +232,19 @@ server <- function(input, output) {
         
     
     # Cupos totales (server) ------------------------------------------
+
     output$total_slots <- renderValueBox({
         # The following code runs inside the database.
         # pull() bring the results into R, which then
         # it's piped directly to a valueBox()
         indicator$existingSchools %>%
             `st_geometry<-`(NULL) %>%
-            summarise(mean = sum(basica_cap, na.rm = T)) %>%
+            summarise(mean = paste0(sum(basica_cap, na.rm = T))) %>%
             pull()  %>%
             as.integer() %>%
             prettyNum(big.mark = ".") %>%
             valueBox(subtitle = "Capacidad escolar comunal")
+    
         
     })
     # Niños totales (server) ------------------------------------------
