@@ -52,8 +52,7 @@ dbHeader <- dashboardHeader(title = "Modelador de Accesibilidad Comunal en Chill
 
 
 # Define UI for application that draws a histogram
-ui <- dashboardPage( skin = "black",
-    # Application title
+ui <- dashboardPage(     # Application title
     dashboardHeader( title = "Modelador de Accesibilidad Comunal en Chillán", titleWidth  = 400
                      
                      
@@ -85,8 +84,7 @@ ui <- dashboardPage( skin = "black",
     ),
     
     dashboardBody(
-        
-        tags$style(".small-box.bg-yellow { background-color: #FFFF00 !important; color: #000000 !important; }"),
+        tags$head(includeCSS("www/css/styles.css")),
         # Cajitas con indicadores generales
         fluidRow(valueBoxOutput("total_kids"),
         valueBoxOutput("total_slots"),
