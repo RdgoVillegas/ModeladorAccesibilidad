@@ -36,6 +36,9 @@ a{
 .skin-blue .main-header .logo {
 	background-color: #f4b943;
 }
+.main-header {background-color:#FFFFFF;  max-height:130px; width:100%; min-height:30px;
+                       margin-botton:10px; padding-botton:10px; position:relative
+}
 
 div{
 

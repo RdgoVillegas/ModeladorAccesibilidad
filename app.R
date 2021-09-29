@@ -54,6 +54,7 @@ selectInput("indicadorsh",
 
 
 dbHeader <- dashboardHeader(title = "Accesibilidad Escolar", titleWidth = 450,
+                            
                             tags$li(
                                 selectInput("indicadorsh", 
                                             label = NULL,
@@ -66,8 +67,7 @@ dbHeader <- dashboardHeader(title = "Accesibilidad Escolar", titleWidth = 450,
                                 style = "padding-top:10px;"),
                             tags$li(a(href = 'http://www.observatorio.cedeus.cl',
                                       img(src = "img/Logo.png",
-                                          title = "Company Home", height = "30px"),
-                                      style = "padding-top:10px;"),
+                                          title = "Company Home", height = "30px")),
                                     class = "dropdown"
                                     
                                     ))
@@ -83,7 +83,8 @@ ui <- dashboardPage(  skin = "black",  # Application title
     dashboardSidebar(
 
         verticalLayout(
-
+            p(""),
+            p(""),
             p("Esta herramienta permite evaluar la incidencia de la construcción de una nueva escuela municipal en un indicador de accesibilidad escolar municipal"),
             p("El indicador de accesibilidad evalua la cantidad de matrículas disponibles por niño en función de la cercanía de las escuelas, cuantas matrículas tienen disponibles, y cuantos niños conviven cerca. De esta manera, el indicador de accesibilidada escolar integra oferta, demanda, y transporte"),
             p("Para usarlo, se debe hacer click en 'Añadir Escuela', ingresar un nombre, una capacidad, y luego seleccionar un lugar del mapa para la escuela. Luego, se debe hacer click en 'Calcular Cambios'. El mapa se actualizará, presentando los efectos de la nueva escuela en el indicador."),
@@ -97,6 +98,7 @@ ui <- dashboardPage(  skin = "black",  # Application title
     ),
     
     dashboardBody(
+        
         
         tags$head(includeCSS("www/css/styles.css")),
         # Cajitas con indicadores generales
