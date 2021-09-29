@@ -73,6 +73,8 @@ a{
   background-color: white;
 }
 
+.small-box.bg-yellow { background-color: #000000 !important; color: #000000 !important;}
+
 div{
 
 }

@@ -52,9 +52,7 @@ dbHeader <- dashboardHeader(title = "Modelador de Accesibilidad Comunal en Chill
 
 
 # Define UI for application that draws a histogram
-ui <- dashboardPage(
-    
-
+ui <- dashboardPage( skin = "black",
     # Application title
     dashboardHeader( title = "Modelador de Accesibilidad Comunal en Chillán", titleWidth  = 400
                      
@@ -87,8 +85,8 @@ ui <- dashboardPage(
     ),
     
     dashboardBody(
-        tags$head( tags$link(rel = "stylesheet", type = "text/css", href = "www/css/styles.css")),
         
+        tags$style(".small-box.bg-yellow { background-color: #FFFF00 !important; color: #000000 !important; }"),
         # Cajitas con indicadores generales
         fluidRow(valueBoxOutput("total_kids"),
         valueBoxOutput("total_slots"),
@@ -246,7 +244,7 @@ server <- function(input, output) {
             pull()  %>%
             as.integer() %>%
             prettyNum(big.mark = ".") %>%
-            valueBox(subtitle = "Niños en la comuna")
+            valueBox(subtitle = "Niños en la comuna", color = "yellow")
         
     })
     # Accesibilidad promedio (server) ------------------------------------------
