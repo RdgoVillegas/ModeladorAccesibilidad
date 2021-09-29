@@ -39,24 +39,14 @@ oriCap <- escuelasSf %>%
     summarise(sum = sum(basica_cap, na.rm = T))
 oriCap <- oriCap$sum[1]
 
-dbHeader <- dashboardHeader(title = "Modelador de Accesibilidad Comunal en Chillán",
-                            tags$li(a(href = 'http://shinyapps.company.com',
-                                      icon("power-off"),
-                                      title = "Back to Apps Home"),
-                                    class = "dropdown"),
-                            tags$li(a(href = 'http://www.company.com',
-                                      img(src = 'company_logo.png',
-                                          title = "Company Home", height = "30px"),
-                                      style = "padding-top:10px; padding-bottom:10px;"),
-                                    class = "dropdown"))
+
+title <- tags$a('Modelador Accesibilidad Chillán', href='https://www.google.com',
+                tags$img(align = "right", src ="img/Logo.png"), target="_blank")
 
 
 # Define UI for application that draws a histogram
-ui <- dashboardPage(     # Application title
-    dashboardHeader( title = "Modelador de Accesibilidad Comunal en Chillán", titleWidth  = 400
-                     
-                     
-                     ),
+ui <- dashboardPage(   # Application title
+    dashboardHeader(title = title, titleWidth = 400), 
 
     # Sidebar with a slider input for number of bins 
     dashboardSidebar(
@@ -84,6 +74,7 @@ ui <- dashboardPage(     # Application title
     ),
     
     dashboardBody(
+        
         tags$head(includeCSS("www/css/styles.css")),
         # Cajitas con indicadores generales
         fluidRow(valueBoxOutput("total_kids"),

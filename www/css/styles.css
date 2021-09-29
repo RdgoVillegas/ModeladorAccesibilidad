@@ -31,15 +31,14 @@ a{
 
 }
 
-.skin-blue .main-header .navbar{
-  background-color: white;
-}
 
-.small-box.bg-yellow { background-color: #000000 !important; color: #000000 !important;}
+
+.small-box.bg-yellow { background-color: #FF0000 !important; color: #000000 !important;}
 .main-header .logo {
   font-family: "Georgia", Times, "Times New Roman", serif;
   font-weight: bold;
   font-size: 24px;
+  font-color: white;
 }
 div{
 
