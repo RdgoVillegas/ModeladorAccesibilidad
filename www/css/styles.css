@@ -32,14 +32,11 @@ a{
 }
 
 
-
-.small-box.bg-yellow { background-color: #FF0000 !important; color: #000000 !important;}
-.main-header .logo {
-  font-family: "Georgia", Times, "Times New Roman", serif;
-  font-weight: bold;
-  font-size: 24px;
-  font-color: white;
+* logo */
+.skin-blue .main-header .logo {
+	background-color: #f4b943;
 }
+
 div{
 
 }

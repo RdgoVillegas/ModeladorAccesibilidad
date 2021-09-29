@@ -40,27 +40,50 @@ oriCap <- escuelasSf %>%
 oriCap <- oriCap$sum[1]
 
 
-title <- tags$a('Modelador Accesibilidad Chillán', href='https://www.google.com',
-                tags$img(align = "right", src ="img/Logo.png"), target="_blank")
+selectInput("indicadorsh", 
+            label = "Elija un indicador a modelar",
+            choices = c("Accesibilidad Escolar", 
+                        "Accesibilidad a Áreas Verdes",
+                        "Cobertura de Bomberos", 
+                        "Cobertura de Carabineros",
+                        "Cobertura de Emergencia"),
+            selected = "Accesibilidad Escolar")
+
+
+
+
+
+dbHeader <- dashboardHeader(title = "Accesibilidad Escolar", titleWidth = 450,
+                            tags$li(
+                                selectInput("indicadorsh", 
+                                            label = NULL,
+                                            choices = c("Accesibilidad Escolar", 
+                                                        "Accesibilidad a Áreas Verdes",
+                                                        "Cobertura de Bomberos", 
+                                                        "Cobertura de Carabineros",
+                                                        "Cobertura de Emergencia"),
+                                            selected = "Accesibilidad Escolar"), class = "dropdown", 
+                                style = "padding-top:10px;"),
+                            tags$li(a(href = 'http://www.observatorio.cedeus.cl',
+                                      img(src = "img/Logo.png",
+                                          title = "Company Home", height = "30px"),
+                                      style = "padding-top:10px;"),
+                                    class = "dropdown"
+                                    
+                                    ))
 
 
 # Define UI for application that draws a histogram
-ui <- dashboardPage(   # Application title
-    dashboardHeader(title = title, titleWidth = 400), 
-
+ui <- dashboardPage(  skin = "black",  # Application title
+    # dashboardHeader(title = 
+    #                     span("Modelador Accesibilidad Chillán'", img(src="img/Logo.png", width = 200),
+    #                          ), titleWidth = 400), 
+    dbHeader, 
     # Sidebar with a slider input for number of bins 
     dashboardSidebar(
 
         verticalLayout(
-            selectInput("indicadorsh", 
-                        label = "Elija un indicador a modelar",
-                        choices = c("Accesibilidad Escolar", 
-                                    "Accesibilidad a Áreas Verdes",
-                                    "Cobertura de Bomberos", 
-                                    "Cobertura de Carabineros",
-                                    "Cobertura de Emergencia"),
-                        selected = "Accesibilidad Escolar"),
-            h3("Indicador de Accesibilidad Escolar"),
+
             p("Esta herramienta permite evaluar la incidencia de la construcción de una nueva escuela municipal en un indicador de accesibilidad escolar municipal"),
             p("El indicador de accesibilidad evalua la cantidad de matrículas disponibles por niño en función de la cercanía de las escuelas, cuantas matrículas tienen disponibles, y cuantos niños conviven cerca. De esta manera, el indicador de accesibilidada escolar integra oferta, demanda, y transporte"),
             p("Para usarlo, se debe hacer click en 'Añadir Escuela', ingresar un nombre, una capacidad, y luego seleccionar un lugar del mapa para la escuela. Luego, se debe hacer click en 'Calcular Cambios'. El mapa se actualizará, presentando los efectos de la nueva escuela en el indicador."),
@@ -233,7 +256,7 @@ server <- function(input, output) {
             pull()  %>%
             as.integer() %>%
             prettyNum(big.mark = ".") %>%
-            valueBox(subtitle = "Niños en la comuna", color = "yellow")
+            valueBox(subtitle = "Niños en la comuna")
         
     })
     # Accesibilidad promedio (server) ------------------------------------------
